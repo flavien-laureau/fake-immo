@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header>
+    <header class="header-nav">
       <navbar />
     </header>
     <nuxt />
@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import Navbar from "@/components/Navbar.vue";
+import Navbar from "@/components/layout/Navbar.vue";
 
 export default Vue.extend({
   components: {
@@ -27,5 +27,9 @@ body {
   background-color: #fefaf9;
   font-family: "Roboto", sans-serif;
   font-size: 18px;
+}
+
+.header-nav {
+  margin-bottom: 30px;
 }
 </style>

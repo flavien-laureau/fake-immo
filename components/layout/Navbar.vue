@@ -1,17 +1,19 @@
 <template>
   <b-navbar toggleable="md">
-    <b-navbar-brand href="#">
-      <img class="main-logo" src="@/assets/logo.jpg" />
-    </b-navbar-brand>
+    <nuxt-link to="/">
+      <b-navbar-brand>
+        <img class="main-logo" src="@/assets/logo.jpg" />
+      </b-navbar-brand>
+    </nuxt-link>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item href="#">Accueil</b-nav-item>
-        <b-nav-item href="#">Recrutement</b-nav-item>
-        <b-nav-item href="#">A vendre</b-nav-item>
-        <b-nav-item href="#">Nous contacter</b-nav-item>
+        <nuxt-link to="/">Accueil</nuxt-link>
+        <nuxt-link to="/fakeimmo">Fake-Immo</nuxt-link>
+        <nuxt-link to="/acheter">Acheter</nuxt-link>
+        <nuxt-link to="/contact">Nous contacter</nuxt-link>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
@@ -54,18 +56,26 @@ export default Vue.extend({
 
 /* Links */
 .navbar-collapse {
+}
+.navbar-nav {
   justify-content: center;
+  width: 100%;
+}
+
+.navbar-nav a {
+  color: black;
+  padding: 20px;
 }
 
 @media screen and (max-width: 991px) {
   .navbar {
-    display: flex;
     flex-direction: column;
   }
 }
 
 @media screen and (max-width: 767px) {
   .navbar {
+    display: flex;
     align-items: flex-start;
   }
   .navbar-brand {
@@ -73,6 +83,9 @@ export default Vue.extend({
   }
   .navbar-toggler {
     margin-top: 10px;
+  }
+  .navbar-nav a {
+    padding: 10px;
   }
 }
 </style>
