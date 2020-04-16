@@ -2,13 +2,15 @@
   <section id="articles">
     <article class="article" v-for="(estate, index) in estates" :key="index">
       <figure class="figure-img">
-        <img class="img" src="@/assets/imgMaison.jpg" alt="Illustration de du bien" />
+        <img class="img" :src="estate.img" alt="Illustration de du bien" />
       </figure>
       <div class="card">
         <a href="#">
           <div class="card-body">
-            <h3>{{ estate.name }}</h3>
+            <h3>{{ estate.title }}</h3>
             <p class="description">{{ estate.description }}</p>
+            <p class="rooms">Nombre de pièces: {{ estate.rooms }}</p>
+            <p class="price">{{ estate.price }}</p>
           </div>
         </a>
       </div>
@@ -18,29 +20,20 @@
 
 <script lang="ts">
 import Vue from "vue";
+import axios from "axios";
+
 export default Vue.extend({
   name: "Estate",
   data() {
     return {
-      estates: [
-        {
-          name: "Maison 1",
-          description: "Petite description",
-          prix: "141 000"
-        },
-        {
-          name: "Maison 2",
-          description: "Petite description 2Petite description 2",
-          prix: "142 000"
-        },
-        {
-          name: "Maison 3",
-          description:
-            "Petite description 3Petite description 3Petite description 3Petite description 3Petite description 3Petite description 3Petite description 3",
-          prix: "143 000"
-        }
-      ]
+      estates: []
     };
+  },
+  mounted() {
+    axios.get("http://localhost:3000/estate").then((res: any) => {
+      console.log("resdata", res.data);
+      this.estates = res.data;
+    });
   }
 });
 </script>
