@@ -70,4 +70,4 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 app.use('/images', express.static(path.join(__dirname, '../assets')));
-app.use('/estate', estateRoutes);
+app.use('/api/estate', estateRoutes);

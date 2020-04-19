@@ -14,6 +14,9 @@ export default Vue.extend({
   components: {
     EstateFilter,
     Estate
+  },
+  async fetch({ store }) {
+    await store.dispatch("estates/fetchEstates");
   }
 });
 </script>

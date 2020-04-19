@@ -1,6 +1,6 @@
-# agence-nuxt-typescript
+# A real estate agency site intended to present my skills
 
-> 
+>
 
 ## Build Setup
 

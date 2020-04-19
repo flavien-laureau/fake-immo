@@ -15,17 +15,17 @@ export default Vue.extend({
       typeSelected: "all",
       type: [
         { value: "all", text: "Type de bien" },
-        { value: "maison", text: "Maison" },
-        { value: "appartement", text: "Appartement" }
+        { value: "house", text: "Maison" },
+        { value: "apartment", text: "Appartement" }
       ],
       roomsSelected: "all",
       rooms: [
         { value: "all", text: "Nombre de pièces" },
-        { value: "1", text: "1" },
-        { value: "2", text: "2" },
-        { value: "3", text: "3" },
-        { value: "4", text: "4" },
-        { value: "5", text: "5" },
+        { value: "1", text: "1 - 2" },
+        { value: "2", text: "2 - 3" },
+        { value: "3", text: "3 - 4" },
+        { value: "4", text: "4 - 5" },
+        { value: "5", text: "5 - 6" },
         { value: "6", text: "6 et +" }
       ],
       budgetSelected: "all",
