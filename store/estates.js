@@ -2,12 +2,25 @@ import EstateService from "@/services/estateService"
 
 export const namespaced = true;
 
-export const state = () => ({})
+export const state = () => ({
+  filter: {
+    type: "all",
+    rooms: "all",
+    budget: "all"
+  }
+})
 
 export const mutations = {
   SET_ESTATES(state, estate) {
     state.estatesList = estate
+  },
+  SET_FILTER(state, filter) {
+    state.filter = filter
   }
+  /* ,
+    ADD_ESTATES(state, estate) {
+      state.estatesList.push(estate)
+    } */
 }
 
 export const actions = {
@@ -18,9 +31,42 @@ export const actions = {
       commit("SET_ESTATES", res.data)
     });
 
+  },
+  setFilter({
+    commit
+  }, filter) {
+    commit("SET_FILTER", filter)
   }
 }
 
 export const getters = {
+  getEstates(state) {
+    /**
+     * Pour chaque maison, on test le type, les rooms, le budget. Si tout est 'true', on push. Ensuite on peux renvoyer le tableau final filtré.
+     */
+    let estates = []
 
+    state.estatesList.filter(estate => {
+      let type = state.filter.type === 'all' ? estate.type === 'house' || estate.type === 'apartment' : estate.type === state.filter.type
+
+      let rooms
+      if (state.filter.rooms === "all") {
+        rooms = true
+      } else {
+        rooms = state.filter.rooms === '6' ? estate.rooms >= 6 : (estate.rooms === parseInt(state.filter.rooms) || estate.rooms === parseInt(state.filter.rooms) + 1)
+      }
+
+      let price
+      if (state.filter.budget === 'all') {
+        price = true
+      } else {
+        price = state.filter.budget === '550000+' ? estate.price >= 550000 : estate.price <= parseInt(state.filter.budget)
+      }
+
+      if (type && rooms && price) {
+        estates.push(estate)
+      }
+    })
+    return estates
+  }
 }

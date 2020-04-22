@@ -31,14 +31,34 @@ export default Vue.extend({
       budgetSelected: "all",
       budget: [
         { value: "all", text: "Budget" },
-        { value: "1", text: "< 150 000" },
-        { value: "2", text: "< 250 000" },
-        { value: "3", text: "< 350 000" },
-        { value: "4", text: "< 450 000" },
-        { value: "5", text: "< 550 000" },
-        { value: "6", text: "550 000 et +" }
+        { value: "150000", text: "< 150 000" },
+        { value: "250000", text: "< 250 000" },
+        { value: "350000", text: "< 350 000" },
+        { value: "450000", text: "< 450 000" },
+        { value: "550000", text: "< 550 000" },
+        { value: "550000+", text: "550 000 et +" }
       ]
     };
+  },
+  watch: {
+    typeSelected() {
+      this.dispatchFilter();
+    },
+    roomsSelected() {
+      this.dispatchFilter();
+    },
+    budgetSelected() {
+      this.dispatchFilter();
+    }
+  },
+  methods: {
+    dispatchFilter() {
+      this.$store.dispatch("estates/setFilter", {
+        type: this.typeSelected,
+        rooms: this.roomsSelected,
+        budget: this.budgetSelected
+      });
+    }
   }
 });
 </script>

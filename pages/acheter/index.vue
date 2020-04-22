@@ -2,26 +2,35 @@
   <div class="container">
     <h2 class="h2">Nos biens immobiliers</h2>
     <estate-filter />
-    <estate />
+    <section id="articles">
+      <article class="article" v-for="estate in getEstates" :key="estate._id">
+        <estates :estate="estate" />
+      </article>
+    </section>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import { mapGetters } from "vuex";
 import EstateFilter from "@/components/acheter/Filter.vue";
-import Estate from "@/components/acheter/Estate.vue";
+import Estates from "@/components/acheter/Estates.vue";
+
 export default Vue.extend({
   components: {
     EstateFilter,
-    Estate
+    Estates
   },
   async fetch({ store }) {
     await store.dispatch("estates/fetchEstates");
+  },
+  computed: {
+    ...mapGetters("estates", ["getEstates"])
   }
 });
 </script>
 
-<style>
+<style scoped>
 .container {
   display: flex;
   flex-direction: column;
