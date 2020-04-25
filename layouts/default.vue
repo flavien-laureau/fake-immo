@@ -2,6 +2,7 @@
   <div>
     <header class="header-nav">
       <navbar />
+      <div class="banner"></div>
     </header>
     <nuxt />
   </div>
@@ -31,5 +32,28 @@ body {
 
 .header-nav {
   margin-bottom: 30px;
+}
+
+.banner {
+  background-image: url("../assets/banner-salle-a-manger.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: center;
+  background-position-y: 20%;
+  height: 300px;
+  width: 1140px;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 1199px) {
+  .banner {
+    width: 930px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .banner {
+    width: 100%;
+  }
 }
 </style>

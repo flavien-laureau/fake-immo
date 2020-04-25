@@ -17,10 +17,6 @@
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
-  <!-- <b-row class="text-center">
-    <b-col id="green" cols="12" md="4">1 of 3</b-col>
-    <b-col id="red">2 of 3</b-col>
-  </b-row>-->
 </template>
 
 <script lang="ts">
@@ -55,8 +51,6 @@ export default Vue.extend({
 }
 
 /* Links */
-.navbar-collapse {
-}
 .navbar-nav {
   justify-content: center;
   width: 100%;
