@@ -64,6 +64,9 @@ module.exports = {
    ** Build configuration
    */
   build: {
+    /* splitChunks: {
+      layouts: true
+    }, */
     /*
      ** You can extend webpack config here
      */

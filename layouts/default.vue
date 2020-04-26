@@ -15,13 +15,19 @@ import Navbar from "@/components/layout/Navbar.vue";
 export default Vue.extend({
   components: {
     Navbar
+  },
+  mounted() {
+    // fixes the issue of overlapping of css on different layouts
+    const body = document.body;
+    body.removeAttribute("class");
+    body.classList.add("default-layout");
+    console.log(body);
   }
 });
 </script>
 
-
 <style>
-body {
+body.default-layout {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
