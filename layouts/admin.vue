@@ -27,7 +27,6 @@ export default Vue.extend({
     const body = document.body;
     body.removeAttribute("class");
     body.classList.add("admin-layout");
-    console.log(body);
   }
 });
 </script>
@@ -41,16 +40,16 @@ body.admin-layout {
   background-color: #ecedef;
 }
 
-.c-body {
+body.admin-layout .c-body {
   margin-left: var(--widthSidebar);
 }
 
-.admin-header {
+body.admin-layout .admin-header {
   float: right;
   width: calc(100% - var(--widthSidebar));
   margin-bottom: 32px;
 }
-.sidebar {
+body.admin-layout .sidebar {
   position: fixed;
   background-color: #303c54;
   height: 100%;

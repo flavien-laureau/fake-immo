@@ -21,7 +21,6 @@ export default Vue.extend({
     const body = document.body;
     body.removeAttribute("class");
     body.classList.add("default-layout");
-    console.log(body);
   }
 });
 </script>
@@ -36,11 +35,11 @@ body.default-layout {
   font-size: 18px;
 }
 
-.header-nav {
+body.default-layout .header-nav {
   margin-bottom: 30px;
 }
 
-.banner {
+body.default-layout .banner {
   background-image: url("../assets/banner-salle-a-manger.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -52,13 +51,13 @@ body.default-layout {
 }
 
 @media screen and (max-width: 1199px) {
-  .banner {
+  body.default-layout .banner {
     width: 930px;
   }
 }
 
 @media screen and (max-width: 991px) {
-  .banner {
+  body.default-layout .banner {
     width: 100%;
   }
 }

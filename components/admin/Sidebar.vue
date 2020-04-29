@@ -10,7 +10,7 @@
       <nuxt-link to="/admin" class="nav-link">Admin</nuxt-link>
     </li>
     <li class="nav-item">
-      <nuxt-link to="/admin2" class="nav-link">Admin2</nuxt-link>
+      <nuxt-link to="/authentication" class="nav-link">Auth</nuxt-link>
     </li>
   </b-nav>
 </template>

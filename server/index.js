@@ -9,6 +9,7 @@ const {
 } = require("nuxt");
 const app = express();
 const estateRoutes = require('./routes/estate');
+const adminRoutes = require('./routes/admin');
 
 // Import and Set Nuxt.js options
 const config = require("../nuxt.config.js");
@@ -70,4 +71,5 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 app.use('/images', express.static(path.join(__dirname, '../assets')));
+app.use('/api/admin', adminRoutes)
 app.use('/api/estate', estateRoutes);
