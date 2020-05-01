@@ -1,5 +1,7 @@
 const Admin = require("../models/Admin");
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken')
+
 
 exports.register = (req, res, next) => {
   bcrypt
@@ -32,8 +34,8 @@ exports.register = (req, res, next) => {
 
 exports.login = (req, res, next) => {
   Admin.findOne({
-    email: req.body.email
-  })
+      email: req.body.email
+    })
     .then(admin => {
       if (!admin) {
         return res.status(401).json("Administrateur non trouvé !");
@@ -44,7 +46,16 @@ exports.login = (req, res, next) => {
           if (!validator) {
             return res.status(401).json("Mot de passe incorrect !");
           }
-          res.status(200).json(admin);
+          res.status(200).json({
+            adminId: admin._id,
+            token: jwt.sign({
+                adminId: admin._id
+              },
+              'RANDOM_TOKEN_SECRET', {
+                expiresIn: '24h'
+              }
+            )
+          });
         })
         .catch(error =>
           res.status(404).json({

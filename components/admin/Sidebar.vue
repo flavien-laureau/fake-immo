@@ -7,10 +7,10 @@
       <nuxt-link to="/acheter" class="nav-link" active>Acheter</nuxt-link>
     </li>
     <li class="nav-item">
-      <nuxt-link to="/admin" class="nav-link">Admin</nuxt-link>
+      <nuxt-link to="/admin-panel" class="nav-link">Admin</nuxt-link>
     </li>
     <li class="nav-item">
-      <nuxt-link to="/authentication" class="nav-link">Auth</nuxt-link>
+      <nuxt-link to="/admin" class="nav-link">Auth</nuxt-link>
     </li>
   </b-nav>
 </template>

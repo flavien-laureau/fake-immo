@@ -14,7 +14,7 @@
         <nuxt-link to="/fakeimmo">Fake-Immo</nuxt-link>
         <nuxt-link to="/acheter">Acheter</nuxt-link>
         <nuxt-link to="/contact">Nous contacter</nuxt-link>
-        <nuxt-link to="/authentication">AUTH</nuxt-link>
+        <nuxt-link to="/admin">AUTH</nuxt-link>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
