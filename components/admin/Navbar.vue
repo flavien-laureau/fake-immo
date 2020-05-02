@@ -11,7 +11,7 @@
 
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
-        <b-nav-item href="#">Logout</b-nav-item>
+        <b-nav-item @click="logout" href="#">Logout</b-nav-item>
         <b-nav-item href="#" disabled>Disabled</b-nav-item>
 
         <b-nav-item-dropdown text="User" right>
@@ -26,7 +26,13 @@
 <script lang="ts">
 import Vue from "vue";
 export default Vue.extend({
-  name: "Navbar"
+  name: "Navbar",
+  methods: {
+    logout() {
+      this.$store.dispatch("admin/logout");
+      this.$router.push("/admin");
+    }
+  }
 });
 </script>
 

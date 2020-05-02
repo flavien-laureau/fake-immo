@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nuxt-link to="/">
+    <nuxt-link to="/" class="logo-link">
       <img class="main-logo" src="@/assets/logo.jpg" />
     </nuxt-link>
     <nuxt />
@@ -25,8 +25,9 @@ body.auth-layout {
   background-color: #fefaf9;
 }
 
-body.auth-layout .main-logo {
+body.auth-layout .logo-link {
   display: block;
+  width: 300px;
   margin: 0 auto;
 }
 </style>

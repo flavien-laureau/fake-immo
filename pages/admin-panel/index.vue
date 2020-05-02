@@ -45,7 +45,8 @@
 import Vue from "vue";
 export default Vue.extend({
   name: "admin-panel",
-  layout: "admin"
+  layout: "admin",
+  middleware: "adminAuth"
 });
 </script>
 

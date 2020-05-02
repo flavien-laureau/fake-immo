@@ -29,9 +29,17 @@ export const actions = {
         return true
       })
       .catch(err => {
-        console.log('Erreur | store | admin.js | actions login : Mauvais identifiants')
+        console.log('Erreur | store/admin.js/actions/login : Mauvais identifiants')
+        console.log(err)
         return false
       })
+  },
+
+  logout({
+    commit
+  }) {
+    commit("SET_ADMINID", null)
+    commit("SET_TOKEN", null)
   }
 }
 

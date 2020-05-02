@@ -1,10 +1,10 @@
 <template>
   <b-navbar toggleable="md">
-    <nuxt-link to="/">
-      <b-navbar-brand>
+    <b-navbar-brand>
+      <nuxt-link to="/">
         <img class="main-logo" src="@/assets/logo.jpg" />
-      </b-navbar-brand>
-    </nuxt-link>
+      </nuxt-link>
+    </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 

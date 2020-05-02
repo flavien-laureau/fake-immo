@@ -17,6 +17,7 @@
 
           <b-button type="submit" variant="primary">Se connecter</b-button>
           <b-button type="reset" variant="danger">Effacer</b-button>
+          <nuxt-link to="/admin-panel">admin-panel (tempo)</nuxt-link>
         </b-form>
       </div>
     </div>
