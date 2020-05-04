@@ -3,6 +3,7 @@ import EstateService from "@/services/estateService"
 export const namespaced = true;
 
 export const state = () => ({
+  estatesList: "",
   filter: {
     type: "all",
     rooms: "all",
@@ -16,11 +17,10 @@ export const mutations = {
   },
   SET_FILTER(state, filter) {
     state.filter = filter
+  },
+  ADD_ESTATES(state, estate) {
+    state.estatesList.unshift(estate)
   }
-  /* ,
-    ADD_ESTATES(state, estate) {
-      state.estatesList.push(estate)
-    } */
 }
 
 export const actions = {
@@ -36,11 +36,18 @@ export const actions = {
     commit
   }, filter) {
     commit("SET_FILTER", filter)
+  },
+  postEstate({
+    commit
+  }, data) {
+    EstateService.post(data.estate, data.token).then(res => {
+      commit("ADD_ESTATES", res.data)
+    }).catch(err => console.error(err))
   }
 }
 
 export const getters = {
-  getEstates(state) {
+  getFilterEstates(state) {
     /**
      * Pour chaque maison, on test le type, les rooms, le budget. Si tout est 'true', on push. Ensuite on peux renvoyer le tableau final filtré.
      */

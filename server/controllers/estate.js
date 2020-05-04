@@ -16,3 +16,20 @@ exports.getOneEstateById = (req, res, next) => {
       error
     }))
 }
+
+exports.createEstate = (req, res, next) => {
+  const estate = new Estate({
+    ...JSON.parse(req.body.estate),
+    img: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+  });
+
+  estate.save()
+    .then(() => res.status(201).json({
+      message: 'Bien immobilier enregistré !'
+    }))
+    .catch(error => {
+      res.status(400).json({
+        error
+      })
+    });
+}

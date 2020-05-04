@@ -3,7 +3,7 @@
     <h2 class="h2">Nos biens immobiliers</h2>
     <estate-filter />
     <section id="articles">
-      <article class="article" v-for="estate in getEstates" :key="estate._id">
+      <article class="article" v-for="estate in getFilterEstates" :key="estate._id">
         <estates :estate="estate" />
       </article>
     </section>
@@ -25,7 +25,7 @@ export default Vue.extend({
     await store.dispatch("estates/fetchEstates");
   },
   computed: {
-    ...mapGetters("estates", ["getEstates"])
+    ...mapGetters("estates", ["getFilterEstates"])
   }
 });
 </script>

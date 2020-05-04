@@ -8,11 +8,21 @@
             label-for="email-input"
             description="Nous ne partagerons jamais votre e-mail avec quelqu'un d'autre."
           >
-            <b-form-input id="email-input" v-model="form.email" type="email" required></b-form-input>
+            <b-form-input
+              id="email-input"
+              v-model="form.email"
+              type="email"
+              required
+            ></b-form-input>
           </b-form-group>
 
           <b-form-group label="Mot de passe:" label-for="password-input">
-            <b-form-input id="password-input" type="password" v-model="form.password" required></b-form-input>
+            <b-form-input
+              id="password-input"
+              type="password"
+              v-model="form.password"
+              required
+            ></b-form-input>
           </b-form-group>
 
           <b-button type="submit" variant="primary">Se connecter</b-button>
@@ -33,8 +43,8 @@ export default Vue.extend({
   data() {
     return {
       form: {
-        email: "",
-        password: ""
+        email: "slt@mail.com",
+        password: "test"
       },
       show: true
     };

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const estateSchema = mongoose.Schema({
-  name: {
+  title: {
     type: String,
     required: true
   },
@@ -9,12 +9,20 @@ const estateSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  image: {
+  img: {
     type: String,
     required: true
   },
-  userId: {
+  adminId: {
     type: String,
+    required: true
+  },
+  type: {
+    type: String,
+    required: true
+  },
+  rooms: {
+    type: Number,
     required: true
   },
   price: {

@@ -2,7 +2,11 @@ import adminService from "@/services/adminService";
 
 export const namespaced = true;
 
-export const state = () => ({})
+export const state = () => ({
+  token: "",
+  adminId: "",
+  isAdminLoggedIn: false
+})
 
 export const mutations = {
   SET_ADMINID(state, id) {
