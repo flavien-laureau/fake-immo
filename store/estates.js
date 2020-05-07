@@ -14,12 +14,20 @@ export const state = () => ({
 export const mutations = {
   SET_ESTATES(state, estate) {
     state.estatesList = estate
+    console.log(estate)
   },
   SET_FILTER(state, filter) {
     state.filter = filter
   },
   ADD_ESTATES(state, estate) {
     state.estatesList.unshift(estate)
+  },
+  DELETE_ESTATE(state, id) {
+    //On trouve l'élément dans le state et on le supprime, pour le rafraîchissement dynamique
+    const index = state.estatesList.findIndex(estate => estate._id === id);
+    if (index > -1) {
+      state.estatesList.splice(index, 1);
+    }
   }
 }
 
@@ -42,6 +50,13 @@ export const actions = {
   }, data) {
     EstateService.createOne(data.estate, data.token).then(res => {
       commit("ADD_ESTATES", res.data)
+    }).catch(err => console.error(err))
+  },
+  deleteEstate({
+    commit
+  }, data) {
+    EstateService.deleteOne(data.id, data.token).then(res => {
+      commit("DELETE_ESTATE", data.id)
     }).catch(err => console.error(err))
   }
 }

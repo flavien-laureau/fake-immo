@@ -12,5 +12,12 @@ export default {
       }
     })
   },
+  deleteOne(id, token) {
+    return Api().delete(`api/estate/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+  }
 
 }

@@ -194,9 +194,6 @@ export default Vue.extend({
         formData.append("estate", JSON.stringify(estate));
         formData.append("image", this.file);
 
-        // for (var value of formData.values()) {
-        //     console.log(value);
-        // }
         this.addSubmit(formData);
       } /* else if (this.state === "modify") {
         if (this.stateModify === false) {
@@ -244,16 +241,17 @@ export default Vue.extend({
       });
     },
 
-    handleDelete(id: any, e: any) {
-      /* e.preventDefault();
+    handleDelete(id: string, e: any) {
+      e.preventDefault();
 
-      const confirm = window.confirm("etes-vous sure ?");
+      const confirm = window.confirm("Êtes-vous sure ?");
 
       if (confirm) {
-        ItemService.delete(id, this.$store.state.token).then(() =>
-          this.refresh()
-        );
-      } */
+        this.$store.dispatch("estates/deleteEstate", {
+          id: id,
+          token: this.$store.state.admin.token
+        });
+      }
     },
 
     handleModify(id: any, e: any) {
@@ -289,12 +287,12 @@ export default Vue.extend({
   },
   computed: {
     ...mapState("estates", ["estatesList"])
-  },
+  } /* ,
   watch: {
     file() {
       console.log(this.file);
     }
-  }
+  } */
 });
 </script>
 

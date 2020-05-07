@@ -6,5 +6,6 @@ const multer = require("../middleware/multer-config");
 router.get("/", estateCtrl.getAllEstates);
 router.get("/:id", estateCtrl.getOneEstateById);
 router.post("/", multer, estateCtrl.createEstate);
+router.delete("/:id", estateCtrl.deleteEstate);
 
 module.exports = router;
