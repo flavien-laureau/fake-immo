@@ -2,16 +2,9 @@
   <div class="container-fluid">
     <div class="card">
       <div class="card-body">
-        <!-- <b-button class="btn-add" pill variant="primary">Ajouter un bien</b-button> -->
-
         <div class="table-wrapper">
           <div class="table-title b-row">
-            <b-button
-              v-b-modal.addModal
-              @click="state = 'add'"
-              variant="primary"
-              >Ajouter un bien</b-button
-            >
+            <b-button v-b-modal.addModal @click="state = 'add'" variant="primary">Ajouter un bien</b-button>
           </div>
 
           <table class="table table-bordered">
@@ -33,7 +26,7 @@
                 </td>
                 <td>{{ estate.description }}</td>
                 <td>{{ estate.price }}€</td>
-                <td>Flavien</td>
+                <td>{{ estate.author.name }}</td>
                 <td class="actions-td">
                   <router-link to="/">
                     <!-- <router-link :to="'/site/estate/' + estate._id"> -->
@@ -76,22 +69,12 @@
           @ok="handleOk($event)"
         >
           <form>
-            <b-form-group
-              label="Nom de l'objet"
-              invalid-feedback="Name is required"
-            >
-              <b-form-input
-                @keydown.enter="handleOk"
-                v-model="estate.title"
-                required
-              ></b-form-input>
+            <b-form-group label="Nom de l'objet" invalid-feedback="Name is required">
+              <b-form-input @keydown.enter="handleOk" v-model="estate.title" required></b-form-input>
             </b-form-group>
 
             <b-form-group label="Type" invalid-feedback="Type is required">
-              <b-form-select
-                v-model="estate.type"
-                :options="typeOption"
-              ></b-form-select>
+              <b-form-select v-model="estate.type" :options="typeOption"></b-form-select>
             </b-form-group>
 
             <b-form-group label="Image" invalid-feedback="Image is required">
@@ -105,40 +88,23 @@
               ></b-form-file>
               <div class="mt-3">
                 Selected file: {{ file ? file.name : "" }}
-                <button v-if="file" @click="(file = ''), (stateModify = false)">
-                  X
-                </button>
+                <button
+                  v-if="file"
+                  @click="(file = ''), (stateModify = false)"
+                >X</button>
               </div>
             </b-form-group>
 
-            <b-form-group
-              label="Nombre de pièces"
-              invalid-feedback="Rooms is required"
-            >
-              <b-form-input
-                @keydown.enter="handleOk"
-                v-model="estate.rooms"
-                required
-              ></b-form-input>
+            <b-form-group label="Nombre de pièces" invalid-feedback="Rooms is required">
+              <b-form-input @keydown.enter="handleOk" v-model="estate.rooms" required></b-form-input>
             </b-form-group>
 
-            <b-form-group
-              label="Description"
-              invalid-feedback="Description is required"
-            >
-              <b-form-input
-                @keydown.enter="handleOk"
-                v-model="estate.description"
-                required
-              ></b-form-input>
+            <b-form-group label="Description" invalid-feedback="Description is required">
+              <b-form-input @keydown.enter="handleOk" v-model="estate.description" required></b-form-input>
             </b-form-group>
 
             <b-form-group label="Prix" invalid-feedback="Price is required">
-              <b-form-input
-                @keydown.enter="handleOk"
-                v-model="estate.price"
-                required
-              ></b-form-input>
+              <b-form-input @keydown.enter="handleOk" v-model="estate.price" required></b-form-input>
             </b-form-group>
           </form>
         </b-modal>
@@ -166,7 +132,13 @@ export default Vue.extend({
   data() {
     return {
       id: "",
-      estate: {} as Estate,
+      estate: {
+        title: "test title",
+        rooms: "5",
+        type: "house",
+        description: "string",
+        price: 120000
+      } /* as Estate */,
       file: "",
       image: "",
       typeOption: [
@@ -180,13 +152,10 @@ export default Vue.extend({
   async fetch({ store }) {
     await store.dispatch("estates/fetchEstates");
   },
-  mounted() {
-    console.log("test", this.estate);
-  },
   methods: {
     resetModal() {
       this.id = "";
-      this.estate = {} as Estate;
+      //this.estate = {} as Estate;
       this.file = "";
       this.image = "";
       this.state = "";
@@ -214,7 +183,10 @@ export default Vue.extend({
         let estate = {
           title: this.estate.title,
           description: this.estate.description,
-          adminId: this.$store.state.admin.adminId,
+          author: {
+            adminId: this.$store.state.admin.adminId,
+            name: this.$store.state.admin.name
+          },
           price: this.estate.price,
           rooms: this.estate.rooms,
           type: this.estate.type
@@ -266,7 +238,7 @@ export default Vue.extend({
     addSubmit(estate: any) {
       // Push the formdata to DB
 
-      this.$store.dispatch("estates/postEstate", {
+      this.$store.dispatch("estates/createEstate", {
         estate: estate,
         token: this.$store.state.admin.token
       });
@@ -317,6 +289,11 @@ export default Vue.extend({
   },
   computed: {
     ...mapState("estates", ["estatesList"])
+  },
+  watch: {
+    file() {
+      console.log(this.file);
+    }
   }
 });
 </script>

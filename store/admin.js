@@ -5,12 +5,16 @@ export const namespaced = true;
 export const state = () => ({
   token: "",
   adminId: "",
+  name: "",
   isAdminLoggedIn: false
 })
 
 export const mutations = {
   SET_ADMINID(state, id) {
     state.adminId = id
+  },
+  SET_NAME(state, name) {
+    state.name = name
   },
   SET_TOKEN(state, token) {
     state.token = token
@@ -29,6 +33,7 @@ export const actions = {
     return adminService.login(credentials)
       .then(res => {
         commit("SET_ADMINID", res.data.adminId)
+        commit("SET_NAME", res.data.name)
         commit("SET_TOKEN", res.data.token)
         return true
       })

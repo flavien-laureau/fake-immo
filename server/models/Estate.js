@@ -13,9 +13,15 @@ const estateSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  adminId: {
-    type: String,
-    required: true
+  author: {
+    adminId: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    }
   },
   type: {
     type: String,

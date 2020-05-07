@@ -1,10 +1,10 @@
 import Api from './api'
 
 export default {
-  get() {
+  getAll() {
     return Api().get('api/estate')
   },
-  post(estate, token) {
+  createOne(estate, token) {
     return Api().post('api/estate', estate, {
       headers: {
         'Authorization': `Bearer ${token}`,

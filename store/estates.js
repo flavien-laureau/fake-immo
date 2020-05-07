@@ -27,7 +27,7 @@ export const actions = {
   fetchEstates({
     commit
   }) {
-    return EstateService.get().then(res => {
+    return EstateService.getAll().then(res => {
       commit("SET_ESTATES", res.data)
     });
 
@@ -37,10 +37,10 @@ export const actions = {
   }, filter) {
     commit("SET_FILTER", filter)
   },
-  postEstate({
+  createEstate({
     commit
   }, data) {
-    EstateService.post(data.estate, data.token).then(res => {
+    EstateService.createOne(data.estate, data.token).then(res => {
       commit("ADD_ESTATES", res.data)
     }).catch(err => console.error(err))
   }

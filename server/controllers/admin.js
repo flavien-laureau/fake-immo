@@ -8,6 +8,8 @@ exports.register = (req, res, next) => {
     .hash(req.body.password, 10)
     .then(hash => {
       const admin = new Admin({
+        lastname: req.body.lastname,
+        firstname: req.body.firstname,
         email: req.body.email,
         password: hash
       });
@@ -48,6 +50,7 @@ exports.login = (req, res, next) => {
           }
           res.status(200).json({
             adminId: admin._id,
+            name: admin.lastname + ' ' + admin.firstname,
             token: jwt.sign({
                 adminId: admin._id
               },
