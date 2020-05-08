@@ -87,7 +87,7 @@
                 drop-placeholder="Drop file here..."
               ></b-form-file>
               <div class="mt-3">
-                Selected file: {{ file ? file.name : "" }}
+                Selected file: {{ file ? file.name : null }}
                 <button
                   v-if="file"
                   @click="(file = ''), (stateModify = false)"
@@ -117,6 +117,13 @@
 import Vue from "vue";
 import { mapState } from "vuex";
 
+/* title: "test title",
+        rooms: "5",
+        type: "house",
+        description: "string",
+        price: 120000
+       */
+
 interface Estate {
   title: string;
   rooms: number;
@@ -125,21 +132,28 @@ interface Estate {
   price: number;
 }
 
+interface State {
+  id: string;
+  estate: Estate;
+  file: null | File | (string | Blob);
+  image: string;
+  typeOption: [
+    { value: "house"; text: "Maison" },
+    { value: "apartment"; text: "Appartement" }
+  ];
+  state: string;
+  stateModify: boolean;
+}
+
 export default Vue.extend({
   name: "admin-panel",
   layout: "admin",
   middleware: "adminAuth",
-  data() {
+  data(): State {
     return {
       id: "",
-      estate: {
-        title: "test title",
-        rooms: "5",
-        type: "house",
-        description: "string",
-        price: 120000
-      } /* as Estate */,
-      file: "",
+      estate: {} as Estate,
+      file: null,
       image: "",
       typeOption: [
         { value: "house", text: "Maison" },
@@ -156,7 +170,7 @@ export default Vue.extend({
     resetModal() {
       this.id = "";
       //this.estate = {} as Estate;
-      this.file = "";
+      this.file = null;
       this.image = "";
       this.state = "";
       this.stateModify = false;
@@ -192,7 +206,7 @@ export default Vue.extend({
           type: this.estate.type
         };
         formData.append("estate", JSON.stringify(estate));
-        formData.append("image", this.file);
+        formData.append("image", this.file as any);
 
         this.addSubmit(formData);
       } /* else if (this.state === "modify") {
