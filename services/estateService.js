@@ -4,6 +4,9 @@ export default {
   getAll() {
     return Api().get('api/estate')
   },
+  getOne(id) {
+    return Api().get(`api/estate/${id}`)
+  },
   createOne(estate, token) {
     return Api().post('api/estate', estate, {
       headers: {

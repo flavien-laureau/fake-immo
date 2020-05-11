@@ -4,6 +4,7 @@ export const namespaced = true;
 
 export const state = () => ({
   estatesList: "",
+  oneEstate: "",
   filter: {
     type: "all",
     rooms: "all",
@@ -12,9 +13,12 @@ export const state = () => ({
 })
 
 export const mutations = {
-  SET_ESTATES(state, estate) {
-    state.estatesList = estate
-    console.log(estate)
+  SET_ESTATES(state, estates) {
+    state.estatesList = estates
+    console.log(' store estates:', estates)
+  },
+  SET_ESTATE(state, estate) {
+    state.oneEstate = estate
   },
   SET_FILTER(state, filter) {
     state.filter = filter
@@ -39,6 +43,14 @@ export const actions = {
       commit("SET_ESTATES", res.data)
     });
 
+  },
+  fetchEstate({
+    commit
+  }, id) {
+    return EstateService.getOne(id).then(res => {
+      console.log('fetchstore: ', res.data)
+      commit("SET_ESTATE", res.data)
+    });
   },
   setFilter({
     commit

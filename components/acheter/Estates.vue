@@ -4,7 +4,7 @@
       <img class="img" :src="estate.img" alt="Illustration du bien" />
     </figure>
     <div class="card">
-      <nuxt-link to="/acheter/propriété">
+      <nuxt-link :to="'/acheter/propriété/' + estate._id">
         <div class="card-body">
           <h3>{{ estate.title }}</h3>
           <p class="description">{{ estate.description }}</p>
