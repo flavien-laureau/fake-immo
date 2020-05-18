@@ -7,5 +7,6 @@ router.get("/", estateCtrl.getAllEstates);
 router.get("/:id", estateCtrl.getOneEstateById);
 router.post("/", multer, estateCtrl.createEstate);
 router.delete("/:id", estateCtrl.deleteEstate);
+router.put("/:id", multer, estateCtrl.modifyEstate)
 
 module.exports = router;

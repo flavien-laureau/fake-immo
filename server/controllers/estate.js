@@ -1,4 +1,5 @@
 const Estate = require('../models/Estate');
+const fs = require('fs');
 
 
 exports.getAllEstates = (req, res, next) => {
@@ -39,16 +40,75 @@ exports.createEstate = (req, res, next) => {
 }
 
 exports.deleteEstate = (req, res, next) => {
-  Estate.deleteOne({
+  Estate.findOne({
       _id: req.params.id
     })
-    .then(() => res.status(200).json({
-      message: 'Suppression confirmée'
-    }))
-    .catch(error => {
-      res.status(400).json({
-        error,
-        message: "ERREUR DELETE"
-      })
-    });
+    .then(estate => {
+      console.log("estate::", estate)
+      const filename = estate.img.split('/images/')[1];
+      console.log('file:', filename)
+      fs.unlink(`assets/${filename}`, () => {
+        Estate.deleteOne({
+            _id: req.params.id
+          })
+          .then(() => res.status(200).json({
+            message: 'Suppression confirmée'
+          }))
+          .catch(error => res.status(400).json({
+            error
+          }));
+      });
+    })
+    .catch(error => res.status(500).json({
+      error
+    }));
 }
+
+exports.modifyEstate = (req, res, next) => {
+  const newEstate = req.file ? {
+    ...JSON.parse(req.body.estate),
+    img: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+  } : {
+    ...JSON.parse(req.body.estate)
+  };
+
+  if (req.file) {
+    Estate.findOne({
+        _id: req.params.id
+      })
+      .then(estate => {
+        const filename = estate.img.split('/images/')[1];
+        fs.unlink(`assets/${filename}`, () => {
+          Estate.updateOne({
+              _id: req.params.id
+            }, {
+              ...newEstate,
+              _id: req.params.id
+            })
+            .then(() => res.status(200).json({
+              message: 'Modification confirmée !'
+            }))
+            .catch(error => res.status(400).json({
+              error
+            }));
+        });
+      })
+      .catch(error => res.status(400).json({
+        error
+      }))
+  } else {
+
+    Estate.updateOne({
+        _id: req.params.id
+      }, {
+        ...newEstate,
+        _id: req.params.id
+      })
+      .then(() => res.status(200).json({
+        message: 'Modification confirmée !'
+      }))
+      .catch(error => res.status(400).json({
+        error
+      }));
+  }
+};

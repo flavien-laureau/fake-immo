@@ -4,7 +4,12 @@
       <div class="card-body">
         <div class="table-wrapper">
           <div class="table-title b-row">
-            <b-button v-b-modal.addModal @click="state = 'add'" variant="primary">Ajouter un bien</b-button>
+            <b-button
+              v-b-modal.addModal
+              @click="state = 'add'"
+              variant="primary"
+              >Ajouter un bien</b-button
+            >
           </div>
 
           <table class="table table-bordered">
@@ -69,12 +74,22 @@
           @ok="handleOk($event)"
         >
           <form>
-            <b-form-group label="Nom de l'objet" invalid-feedback="Name is required">
-              <b-form-input @keydown.enter="handleOk" v-model="estate.title" required></b-form-input>
+            <b-form-group
+              label="Nom de l'objet"
+              invalid-feedback="Name is required"
+            >
+              <b-form-input
+                @keydown.enter="handleOk"
+                v-model="estate.title"
+                required
+              ></b-form-input>
             </b-form-group>
 
             <b-form-group label="Type" invalid-feedback="Type is required">
-              <b-form-select v-model="estate.type" :options="typeOption"></b-form-select>
+              <b-form-select
+                v-model="estate.type"
+                :options="typeOption"
+              ></b-form-select>
             </b-form-group>
 
             <b-form-group label="Image" invalid-feedback="Image is required">
@@ -88,23 +103,40 @@
               ></b-form-file>
               <div class="mt-3">
                 Selected file: {{ file ? file.name : null }}
-                <button
-                  v-if="file"
-                  @click="(file = ''), (stateModify = false)"
-                >X</button>
+                <button v-if="file" @click="(file = ''), (stateModify = false)">
+                  X
+                </button>
               </div>
             </b-form-group>
 
-            <b-form-group label="Nombre de pièces" invalid-feedback="Rooms is required">
-              <b-form-input @keydown.enter="handleOk" v-model="estate.rooms" required></b-form-input>
+            <b-form-group
+              label="Nombre de pièces"
+              invalid-feedback="Rooms is required"
+            >
+              <b-form-input
+                @keydown.enter="handleOk"
+                v-model="estate.rooms"
+                required
+              ></b-form-input>
             </b-form-group>
 
-            <b-form-group label="Description" invalid-feedback="Description is required">
-              <b-form-input @keydown.enter="handleOk" v-model="estate.description" required></b-form-input>
+            <b-form-group
+              label="Description"
+              invalid-feedback="Description is required"
+            >
+              <b-form-input
+                @keydown.enter="handleOk"
+                v-model="estate.description"
+                required
+              ></b-form-input>
             </b-form-group>
 
             <b-form-group label="Prix" invalid-feedback="Price is required">
-              <b-form-input @keydown.enter="handleOk" v-model="estate.price" required></b-form-input>
+              <b-form-input
+                @keydown.enter="handleOk"
+                v-model="estate.price"
+                required
+              ></b-form-input>
             </b-form-group>
           </form>
         </b-modal>
@@ -142,7 +174,7 @@ interface State {
     { value: "apartment"; text: "Appartement" }
   ];
   state: string;
-  stateModify: boolean;
+  isFileModify: boolean;
 }
 
 export default Vue.extend({
@@ -152,7 +184,13 @@ export default Vue.extend({
   data(): State {
     return {
       id: "",
-      estate: {} as Estate,
+      estate: {
+        title: "",
+        rooms: 0,
+        type: "",
+        description: "",
+        price: 0
+      } as Estate,
       file: null,
       image: "",
       typeOption: [
@@ -160,7 +198,7 @@ export default Vue.extend({
         { value: "apartment", text: "Appartement" }
       ],
       state: "",
-      stateModify: false
+      isFileModify: false
     };
   },
   async fetch({ store }) {
@@ -173,7 +211,7 @@ export default Vue.extend({
       this.file = null;
       this.image = "";
       this.state = "";
-      this.stateModify = false;
+      this.isFileModify = false;
     },
     handleOk(e: any) {
       /* const require = () => {
@@ -209,32 +247,31 @@ export default Vue.extend({
         formData.append("image", this.file as any);
 
         this.addSubmit(formData);
-      } /* else if (this.state === "modify") {
-        if (this.stateModify === false) {
+      } else if (this.state === "modify") {
+        const estate = {
+          title: this.estate.title,
+          description: this.estate.description,
+          author: {
+            adminId: this.$store.state.admin.adminId,
+            name: this.$store.state.admin.name
+          },
+          price: this.estate.price,
+          rooms: this.estate.rooms,
+          type: this.estate.type
+        };
+
+        if (this.isFileModify === false) {
           //si on modifie un bien sans image
-          let estate = {
-            title: this.estate.title,
-            description: this.estate.description,
-            image: this.image,
-            userId: this.$store.state.userId,
-            price: this.estate.price
-          };
           formData.append("estate", JSON.stringify(estate));
           this.modifySubmit(formData);
-        } else if (this.stateModify === true) {
+        } else if (this.isFileModify === true) {
           //si on modifie un bien avec nouvelle image
-          let estate = {
-            title: this.estate.title,
-            description: this.estate.description,
-            userId: this.$store.state.userId,
-            price: this.estate.price
-          };
           formData.append("estate", JSON.stringify(estate));
-          formData.append("image", this.file, estate.title);
+          formData.append("image", this.file as any, estate.title);
 
           this.modifySubmit(formData);
         }
-      } */
+      }
 
       //Close modal
       this.$nextTick(() => {
@@ -268,35 +305,39 @@ export default Vue.extend({
       }
     },
 
-    handleModify(id: any, e: any) {
-      /* e.preventDefault();
+    handleModify(id: string, e: any) {
+      e.preventDefault();
 
       this.state = "modify";
       this.id = id;
 
-      let estate;
+      let estate: any;
 
-      this.items.forEach(elt => {
+      this.estatesList.forEach((elt: any) => {
         if (id === elt._id) {
           estate = elt;
         }
       });
 
-      this.title = estate.title;
-      this.image = estate.image;
-      this.description = estate.description;
-      this.price = estate.price; */
+      this.estate.title = estate.title;
+      this.estate.type = estate.type;
+      this.image = estate.img;
+      this.estate.description = estate.description;
+      this.estate.rooms = estate.rooms;
+      this.estate.price = estate.price;
     },
 
     modifySubmit(estate: any) {
-      /* ItemService.modify(this.id, estate, this.$store.state.token).then(() =>
-        this.refresh()
-      ); */
+      this.$store.dispatch("estates/modifyEstate", {
+        id: this.id,
+        estate: estate,
+        token: this.$store.state.admin.token
+      });
     },
     changeFile() {
-      /* if (this.state == "modify") {
-        this.stateModify = true;
-      } */
+      if (this.state == "modify") {
+        this.isFileModify = true;
+      }
     }
   },
   computed: {

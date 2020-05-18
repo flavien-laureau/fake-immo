@@ -32,6 +32,10 @@ export const mutations = {
     if (index > -1) {
       state.estatesList.splice(index, 1);
     }
+  },
+  MODIFY_ESTATE(state, id) {
+    //On trouve l'élément dans le state et on le modifie, pour le rafraîchissement dynamique
+    console.log('TODO MODIFY STATE')
   }
 }
 
@@ -70,6 +74,13 @@ export const actions = {
     EstateService.deleteOne(data.id, data.token).then(res => {
       commit("DELETE_ESTATE", data.id)
     }).catch(err => console.error(err))
+  },
+  modifyEstate({
+    commit
+  }, data) {
+    EstateService.modifyOne(data.id, data.estate, data.token).then(() =>
+      commit("MODIFY_ESTATE", data.id, data.estate) //TODO
+    );
   }
 }
 

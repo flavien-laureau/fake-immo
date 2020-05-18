@@ -21,6 +21,14 @@ export default {
         'Authorization': `Bearer ${token}`
       }
     })
+  },
+  modifyOne(id, estate, token) {
+    return Api().put(`api/estate/${id}`, estate, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'content-type': 'multipart/form-data'
+      }
+    })
   }
 
 }
