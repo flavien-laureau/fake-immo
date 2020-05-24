@@ -35,6 +35,28 @@ const estateSchema = mongoose.Schema({
     type: Number,
     required: true
   },
+  squareMeters: {
+    type: Number,
+    require: true
+  },
+  location: {
+    line: {
+      type: String,
+      required: true
+    },
+    city: {
+      type: String,
+      required: true
+    },
+    postalCode: {
+      type: Number,
+      required: true
+    },
+    country: {
+      type: String,
+      required: true
+    }
+  }
 });
 
 module.exports = mongoose.model('Estate', estateSchema);

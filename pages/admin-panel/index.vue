@@ -12,7 +12,9 @@
               <tr>
                 <th>Titre</th>
                 <th>Photo</th>
+                <th>Adresse</th>
                 <th>Description</th>
+                <th>m²</th>
                 <th>Prix</th>
                 <th>Auteur</th>
                 <th>Actions</th>
@@ -24,7 +26,9 @@
                 <td class="td-img">
                   <img class="img" :src="estate.img" />
                 </td>
+                <td>{{ estate.location.line + ", " + estate.location.postalCode + ", " + estate.location.city }}</td>
                 <td>{{ estate.description }}</td>
+                <td>{{ estate.squareMeters + " m²" }}</td>
                 <td>{{ estate.price }}€</td>
                 <td>{{ estate.author.name }}</td>
                 <td class="actions-td">
@@ -95,8 +99,24 @@
               </div>
             </b-form-group>
 
-            <b-form-group label="Nombre de pièces" invalid-feedback="Rooms is required">
+            <b-form-group label="Nombre de pièces" invalid-feedback="Rooms are required">
               <b-form-input @keydown.enter="handleOk" v-model="estate.rooms" required></b-form-input>
+            </b-form-group>
+            <b-form-group label="Mètres carrés" invalid-feedback="Square meters are required">
+              <b-form-input @keydown.enter="handleOk" v-model="estate.squareMeters" required></b-form-input>
+            </b-form-group>
+
+            <b-form-group label="Numéro et rue" invalid-feedback="Street is required">
+              <b-form-input @keydown.enter="handleOk" v-model="estate.location.line" required></b-form-input>
+            </b-form-group>
+            <b-form-group label="Ville" invalid-feedback="City is required">
+              <b-form-input @keydown.enter="handleOk" v-model="estate.location.city" required></b-form-input>
+            </b-form-group>
+            <b-form-group label="Code postal" invalid-feedback="PostalCode is required">
+              <b-form-input @keydown.enter="handleOk" v-model="estate.location.postalCode" required></b-form-input>
+            </b-form-group>
+            <b-form-group label="Pays" invalid-feedback="Country is required">
+              <b-form-input @keydown.enter="handleOk" v-model="estate.location.country" required></b-form-input>
             </b-form-group>
 
             <b-form-group label="Description" invalid-feedback="Description is required">
@@ -124,10 +144,19 @@ import { mapState } from "vuex";
         price: 120000
        */
 
+interface Location {
+  line: string;
+  city: string;
+  postalCode: number;
+  country: string;
+}
+
 interface Estate {
   title: string;
   rooms: number;
+  squareMeters: number;
   type: string;
+  location: Location;
   description: string;
   price: number;
 }
@@ -155,7 +184,14 @@ export default Vue.extend({
       estate: {
         title: "",
         rooms: 0,
+        squareMeters: 0,
         type: "",
+        location: {
+          line: "",
+          city: "",
+          postalCode: 0,
+          country: ""
+        },
         description: "",
         price: 0
       } as Estate,
@@ -199,6 +235,7 @@ export default Vue.extend({
       let formData = new FormData();
 
       if (this.state === "add") {
+        console.log(this.estate.location);
         //Si on ajoute un bien
         let estate = {
           title: this.estate.title,
@@ -207,8 +244,15 @@ export default Vue.extend({
             adminId: this.$store.state.admin.adminId,
             name: this.$store.state.admin.name
           },
+          location: {
+            line: this.estate.location.line,
+            city: this.estate.location.city,
+            postalCode: this.estate.location.postalCode,
+            country: this.estate.location.country
+          },
           price: this.estate.price,
           rooms: this.estate.rooms,
+          squareMeters: this.estate.squareMeters,
           type: this.estate.type
         };
         formData.append("estate", JSON.stringify(estate));
@@ -223,8 +267,15 @@ export default Vue.extend({
             adminId: this.$store.state.admin.adminId,
             name: this.$store.state.admin.name
           },
+          location: {
+            line: this.estate.location.line,
+            city: this.estate.location.city,
+            postalCode: this.estate.location.postalCode,
+            country: this.estate.location.country
+          },
           price: this.estate.price,
           rooms: this.estate.rooms,
+          squareMeters: this.estate.squareMeters,
           type: this.estate.type
         };
 
@@ -290,8 +341,13 @@ export default Vue.extend({
       this.estate.title = estate.title;
       this.estate.type = estate.type;
       this.image = estate.img;
+      this.estate.location.line = estate.location.line;
+      this.estate.location.city = estate.location.city;
+      this.estate.location.postalCode = estate.location.postalCode;
+      this.estate.location.country = estate.location.country;
       this.estate.description = estate.description;
       this.estate.rooms = estate.rooms;
+      this.estate.squareMeters = estate.squareMeters;
       this.estate.price = estate.price;
     },
 

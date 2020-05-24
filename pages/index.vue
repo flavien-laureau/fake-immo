@@ -22,7 +22,8 @@
             <figcaption class="t">
               <h3 class="type" v-if="estate.type === 'house'">Maison</h3>
               <h3 class="type" v-if="estate.type === 'apartment'">Appartement</h3>
-              <h3 class="info">{{ estate.title }} - {{ estate.rooms }} pièces</h3>
+              <h3 class="info">{{ estate.squareMeters }} m² - {{ estate.rooms }} pièces</h3>
+              <p class="city">{{ estate.location.city }}</p>
               <p class="price">{{ estate.price }} €</p>
               <nuxt-link :to="'/acheter/propriété/' + estate._id">
                 <b-button size="lg" pill variant="outline-light">En savoir +</b-button>
@@ -66,14 +67,16 @@ export default Vue.extend({
         child[0].style.opacity = "0";
         child[1].style.opacity = "0";
         child[2].style.opacity = "0";
-        child[3].children[0].style.transform = "translate(0, -100%)";
+        child[3].style.opacity = "0";
+        child[4].children[0].style.transform = "translate(0, -100%)";
       });
       elt.addEventListener("mouseout", () => {
         let child: any = elt.children;
         child[0].style.opacity = "1";
         child[1].style.opacity = "1";
         child[2].style.opacity = "1";
-        child[3].children[0].style.transform = "translate(0, 0)";
+        child[3].style.opacity = "1";
+        child[4].children[0].style.transform = "translate(0, 0)";
       });
     });
   },
@@ -178,7 +181,6 @@ figure:hover:before {
   border-width: 2px;
   letter-spacing: 1px;
   padding: 12px 24px;
-  margin-top: 20px;
   transition: transform 0.2s ease;
 }
 
