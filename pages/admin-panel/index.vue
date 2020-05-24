@@ -4,12 +4,7 @@
       <div class="card-body">
         <div class="table-wrapper">
           <div class="table-title b-row">
-            <b-button
-              v-b-modal.addModal
-              @click="state = 'add'"
-              variant="primary"
-              >Ajouter un bien</b-button
-            >
+            <b-button v-b-modal.addModal @click="state = 'add'" variant="primary">Ajouter un bien</b-button>
           </div>
 
           <table class="table table-bordered">
@@ -74,22 +69,12 @@
           @ok="handleOk($event)"
         >
           <form>
-            <b-form-group
-              label="Nom de l'objet"
-              invalid-feedback="Name is required"
-            >
-              <b-form-input
-                @keydown.enter="handleOk"
-                v-model="estate.title"
-                required
-              ></b-form-input>
+            <b-form-group label="Nom de l'objet" invalid-feedback="Name is required">
+              <b-form-input @keydown.enter="handleOk" v-model="estate.title" required></b-form-input>
             </b-form-group>
 
             <b-form-group label="Type" invalid-feedback="Type is required">
-              <b-form-select
-                v-model="estate.type"
-                :options="typeOption"
-              ></b-form-select>
+              <b-form-select v-model="estate.type" :options="typeOption"></b-form-select>
             </b-form-group>
 
             <b-form-group label="Image" invalid-feedback="Image is required">
@@ -103,40 +88,23 @@
               ></b-form-file>
               <div class="mt-3">
                 Selected file: {{ file ? file.name : null }}
-                <button v-if="file" @click="(file = ''), (stateModify = false)">
-                  X
-                </button>
+                <button
+                  v-if="file"
+                  @click="(file = ''), (stateModify = false)"
+                >X</button>
               </div>
             </b-form-group>
 
-            <b-form-group
-              label="Nombre de pièces"
-              invalid-feedback="Rooms is required"
-            >
-              <b-form-input
-                @keydown.enter="handleOk"
-                v-model="estate.rooms"
-                required
-              ></b-form-input>
+            <b-form-group label="Nombre de pièces" invalid-feedback="Rooms is required">
+              <b-form-input @keydown.enter="handleOk" v-model="estate.rooms" required></b-form-input>
             </b-form-group>
 
-            <b-form-group
-              label="Description"
-              invalid-feedback="Description is required"
-            >
-              <b-form-input
-                @keydown.enter="handleOk"
-                v-model="estate.description"
-                required
-              ></b-form-input>
+            <b-form-group label="Description" invalid-feedback="Description is required">
+              <b-form-input @keydown.enter="handleOk" v-model="estate.description" required></b-form-input>
             </b-form-group>
 
             <b-form-group label="Prix" invalid-feedback="Price is required">
-              <b-form-input
-                @keydown.enter="handleOk"
-                v-model="estate.price"
-                required
-              ></b-form-input>
+              <b-form-input @keydown.enter="handleOk" v-model="estate.price" required></b-form-input>
             </b-form-group>
           </form>
         </b-modal>
@@ -328,11 +296,15 @@ export default Vue.extend({
     },
 
     modifySubmit(estate: any) {
-      this.$store.dispatch("estates/modifyEstate", {
-        id: this.id,
-        estate: estate,
-        token: this.$store.state.admin.token
-      });
+      this.$store
+        .dispatch("estates/modifyEstate", {
+          id: this.id,
+          estate: estate,
+          token: this.$store.state.admin.token
+        })
+        .then(() => {
+          this.$store.dispatch("estates/fetchEstates");
+        });
     },
     changeFile() {
       if (this.state == "modify") {

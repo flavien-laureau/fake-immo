@@ -57,7 +57,7 @@ export default Vue.extend({
   height: 100%;
 }
 
-@media screen and (max-width: 1201px) {
+@media screen and (max-width: 1199px) {
   .item {
     width: 930px;
   }

@@ -72,7 +72,7 @@ export default Vue.extend({
   text-align-last: center;
 }
 
-@media screen and (max-width: 1201px) {
+@media screen and (max-width: 1199px) {
   /* .form-filter {
     width: 930px;
   } */

@@ -24,7 +24,7 @@ export const mutations = {
     state.filter = filter
   },
   ADD_ESTATES(state, estate) {
-    state.estatesList.unshift(estate)
+    state.estatesList.push(estate)
   },
   DELETE_ESTATE(state, id) {
     //On trouve l'élément dans le state et on le supprime, pour le rafraîchissement dynamique
@@ -32,10 +32,6 @@ export const mutations = {
     if (index > -1) {
       state.estatesList.splice(index, 1);
     }
-  },
-  MODIFY_ESTATE(state, id) {
-    //On trouve l'élément dans le state et on le modifie, pour le rafraîchissement dynamique
-    console.log('TODO MODIFY STATE')
   }
 }
 
@@ -78,9 +74,7 @@ export const actions = {
   modifyEstate({
     commit
   }, data) {
-    EstateService.modifyOne(data.id, data.estate, data.token).then(() =>
-      commit("MODIFY_ESTATE", data.id, data.estate) //TODO
-    );
+    return EstateService.modifyOne(data.id, data.estate, data.token)
   }
 }
 

@@ -34,6 +34,10 @@ module.exports = {
       {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@500&display=swap'
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Marck+Script&display=swap'
       }
     ]
   },
