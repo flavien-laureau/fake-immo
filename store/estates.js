@@ -24,7 +24,7 @@ export const mutations = {
     state.filter = filter
   },
   ADD_ESTATES(state, estate) {
-    state.estatesList.push(estate)
+    state.estatesList.unshift(estate)
   },
   DELETE_ESTATE(state, id) {
     //On trouve l'élément dans le state et on le supprime, pour le rafraîchissement dynamique

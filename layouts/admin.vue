@@ -3,7 +3,7 @@
     <header class="admin-header">
       <navbar />
     </header>
-    <b-navbar class="sidebar">
+    <b-navbar class="sidebar" v-if="desktop">
       <sidebar />
     </b-navbar>
     <div class="c-body">
@@ -22,11 +22,23 @@ export default Vue.extend({
     Navbar,
     Sidebar
   },
+  data() {
+    return {
+      desktop: true
+    };
+  },
   mounted() {
     // fixes the issue of overlapping of css on different layouts
     const body = document.body;
     body.removeAttribute("class");
     body.classList.add("admin-layout");
+
+    // Responsive layout
+    window.innerWidth <= 991 ? (this.desktop = false) : (this.desktop = true);
+
+    window.addEventListener("resize", e => {
+      window.innerWidth <= 991 ? (this.desktop = false) : (this.desktop = true);
+    });
   }
 });
 </script>
@@ -55,5 +67,16 @@ body.admin-layout .sidebar {
   height: 100%;
   width: var(--widthSidebar);
   padding: 0;
+}
+
+@media screen and (max-width: 991px) {
+  body.admin-layout .admin-header {
+    float: none;
+    width: 100%;
+    margin-bottom: 32px;
+  }
+  body.admin-layout .c-body {
+    margin-left: 0;
+  }
 }
 </style>

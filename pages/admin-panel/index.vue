@@ -6,18 +6,16 @@
           <div class="table-title b-row">
             <b-button v-b-modal.addModal @click="state = 'add'" variant="primary">Ajouter un bien</b-button>
           </div>
-
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th>Titre</th>
-                <th>Photo</th>
-                <th>Adresse</th>
-                <th>Description</th>
-                <th>m²</th>
-                <th>Prix</th>
-                <th>Auteur</th>
-                <th>Actions</th>
+                <th id="row-title">Titre</th>
+                <th id="row-img">Photo</th>
+                <th id="row-address">Adresse</th>
+                <th id="row-description">Description</th>
+                <th id="row-price">Prix</th>
+                <th id="row-author">Auteur</th>
+                <th id="row-actions">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -28,15 +26,16 @@
                 </td>
                 <td>{{ estate.location.line + ", " + estate.location.postalCode + ", " + estate.location.city }}</td>
                 <td>{{ estate.description }}</td>
-                <td>{{ estate.squareMeters + " m²" }}</td>
                 <td>{{ estate.price }}€</td>
                 <td>{{ estate.author.name }}</td>
                 <td class="actions-td">
-                  <router-link to="/">
-                    <!-- <router-link :to="'/site/estate/' + estate._id"> -->
-                    <a href="#" class="view" title="View" data-toggle="tooltip">
-                      <i class="material-icons">&#xE417;</i>
-                    </a>
+                  <router-link
+                    :to="'/acheter/propriété/' + estate._id"
+                    class="view"
+                    title="View"
+                    data-toggle="tooltip"
+                  >
+                    <i class="material-icons">&#xE417;</i>
                   </router-link>
                   <a
                     href="#"
@@ -73,7 +72,7 @@
           @ok="handleOk($event)"
         >
           <form>
-            <b-form-group label="Nom de l'objet" invalid-feedback="Name is required">
+            <b-form-group label="Nom du bien" invalid-feedback="Name is required">
               <b-form-input @keydown.enter="handleOk" v-model="estate.title" required></b-form-input>
             </b-form-group>
 
@@ -99,33 +98,60 @@
               </div>
             </b-form-group>
 
-            <b-form-group label="Nombre de pièces" invalid-feedback="Rooms are required">
-              <b-form-input @keydown.enter="handleOk" v-model="estate.rooms" required></b-form-input>
-            </b-form-group>
-            <b-form-group label="Mètres carrés" invalid-feedback="Square meters are required">
-              <b-form-input @keydown.enter="handleOk" v-model="estate.squareMeters" required></b-form-input>
-            </b-form-group>
-
             <b-form-group label="Numéro et rue" invalid-feedback="Street is required">
               <b-form-input @keydown.enter="handleOk" v-model="estate.location.line" required></b-form-input>
             </b-form-group>
-            <b-form-group label="Ville" invalid-feedback="City is required">
-              <b-form-input @keydown.enter="handleOk" v-model="estate.location.city" required></b-form-input>
-            </b-form-group>
-            <b-form-group label="Code postal" invalid-feedback="PostalCode is required">
-              <b-form-input @keydown.enter="handleOk" v-model="estate.location.postalCode" required></b-form-input>
-            </b-form-group>
+            <div class="form-groupe-postalCode-city">
+              <b-form-group
+                class="form-postalCode"
+                label="Code postal"
+                invalid-feedback="PostalCode is required"
+              >
+                <b-form-input
+                  @keydown.enter="handleOk"
+                  v-model="estate.location.postalCode"
+                  required
+                ></b-form-input>
+              </b-form-group>
+              <b-form-group class="form-city" label="Ville" invalid-feedback="City is required">
+                <b-form-input @keydown.enter="handleOk" v-model="estate.location.city" required></b-form-input>
+              </b-form-group>
+            </div>
             <b-form-group label="Pays" invalid-feedback="Country is required">
               <b-form-input @keydown.enter="handleOk" v-model="estate.location.country" required></b-form-input>
             </b-form-group>
 
             <b-form-group label="Description" invalid-feedback="Description is required">
-              <b-form-input @keydown.enter="handleOk" v-model="estate.description" required></b-form-input>
+              <b-form-textarea
+                id="textarea"
+                @keydown.enter="handleOk"
+                v-model="estate.description"
+                placeholder="Enter something..."
+                rows="3"
+                max-rows="6"
+                required
+              ></b-form-textarea>
             </b-form-group>
 
-            <b-form-group label="Prix" invalid-feedback="Price is required">
-              <b-form-input @keydown.enter="handleOk" v-model="estate.price" required></b-form-input>
-            </b-form-group>
+            <div class="form-group-end">
+              <b-form-group
+                class="form-rooms"
+                label="Nombre de pièces"
+                invalid-feedback="Rooms are required"
+              >
+                <b-form-input @keydown.enter="handleOk" v-model="estate.rooms" required></b-form-input>
+              </b-form-group>
+              <b-form-group
+                class="form-square"
+                label="Mètres carrés"
+                invalid-feedback="Square meters are required"
+              >
+                <b-form-input @keydown.enter="handleOk" v-model="estate.squareMeters" required></b-form-input>
+              </b-form-group>
+              <b-form-group class="form-price" label="Prix" invalid-feedback="Price is required">
+                <b-form-input @keydown.enter="handleOk" v-model="estate.price" required></b-form-input>
+              </b-form-group>
+            </div>
           </form>
         </b-modal>
       </div>
@@ -386,6 +412,7 @@ export default Vue.extend({
 .card {
   width: 100%;
   margin-bottom: 24px;
+  overflow-x: auto;
 }
 
 .table {
@@ -403,7 +430,25 @@ export default Vue.extend({
   font-size: 1.5em;
 }
 
-/* Link actions */
+/*Rows */
+#row-title {
+  /* min-width: 135px; */
+}
+#row-img {
+}
+#row-address {
+}
+#row-description {
+}
+#row-price {
+  /* width: 108px; */
+}
+#row-author {
+}
+#row-actions {
+}
+
+/* Row Links actions */
 .table td a.view {
   color: #03a9f4;
 }
@@ -425,5 +470,24 @@ export default Vue.extend({
 }
 .img {
   max-height: 100px;
+}
+
+/* form / input */
+.form-groupe-postalCode-city {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.form-city {
+  grid-column: 2 / 4;
+}
+
+.form-postalCode,
+.form-rooms,
+.form-square {
+  margin-right: 5px;
+}
+
+.form-group-end {
+  display: flex;
 }
 </style>

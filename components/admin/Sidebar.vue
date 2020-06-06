@@ -1,7 +1,7 @@
 <template>
   <b-nav vertical class="sidebar-nav">
     <li class="nav-item" id="home">
-      <nuxt-link to="/" class="nav-link" active>home</nuxt-link>
+      <nuxt-link to="/" class="nav-link" active>Home</nuxt-link>
     </li>
     <li class="nav-item">
       <nuxt-link to="/acheter" class="nav-link" active>Acheter</nuxt-link>
