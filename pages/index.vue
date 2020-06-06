@@ -33,6 +33,48 @@
         </li>
       </ul>
     </section>
+
+    <section class="reviews container">
+      <h2>Témoignages</h2>
+      <h3>Ce que nos clients disent de nous</h3>
+      <hr />
+      <div class="reviews-wrapper">
+        <div class="review-1">
+          <div class="review-body">
+            <div class="review-profile">
+              <div class="review-avatar">
+                <img src="@/assets/client-1.jpg" alt="Agence Bréville Immobilier Cabourg" />
+              </div>
+              <h4 class="name">Léa VARON</h4>
+              <div class="location">Dijon</div>
+            </div>
+
+            <div class="review-quote">
+              <p>Juste deux mots : professionnels et compétents !&nbsp;À la recherche d’un bien sur Cabourg, l’équipe de l’agence a su être à l’écoute de ma demande et a trouvé l’appartement qui me correspond. Je ne pouvais espérer mieux. Encore merci à eux.</p>
+              <div class="swp-content-locator"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-2">
+          <div class="review-body">
+            <div class="review-profile">
+              <div class="review-avatar">
+                <img src="@/assets/client-2.jpg" alt="Agence Bréville Immobilier Cabourg" />
+              </div>
+              <h4 class="name">Patrick PERIN</h4>
+              <div class="location">Plombières-lès-Dijon</div>
+            </div>
+
+            <div class="review-quote">
+              <p>Je recommande l’agence Fake-immo. Pour notre projet immobilier, notre conseiller a bien cerné notre demande. Il nous a bien informés sur la maison que nous avons visitée ensemble. La maison a été correctement négociée afin que nous l’achetions au prix du marché. Si je devais refaire une transaction, je n’hésiterai pas à m’adresser à cette agence pour son professionnalisme.</p>
+              <div class="swp-content-locator"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="info container gray">
       <h2>Informations</h2>
       <p>
@@ -41,6 +83,7 @@
         Laudantium amet vero fuga, labore accusantium hic, ducimus corporis earum in veritatis, ea rem quia sequi? Tempore asperiores, optio facilis aliquam maiores saepe illo obcaecati nostrum, ratione dolor mollitia reprehenderit.
       </p>
     </section>
+
     <section class="socials container">
       <p>Suivez-nous sur les réseaux</p>
       <img class="socials-icons" src="../assets/facebook.png" alt="facebook" />
@@ -92,15 +135,19 @@ export default Vue.extend({
   max-width: 100%;
 }
 
+/* Slogan */
 .slogan {
   font-family: "Marck Script", cursive;
   font-size: 2.3rem;
   text-align: center;
 }
 
+/* Estimate */
 .estimate {
   font-size: 1.4rem;
 }
+
+/*Sample */
 
 .sample {
   padding: 40px 0;
@@ -181,6 +228,48 @@ figure:hover:before {
   padding: 12px 24px;
   transition: transform 0.2s ease;
 }
+/*Reviews */
+.reviews-wrapper {
+  display: flex;
+  margin: 30px 0 50px;
+}
+
+.review-1,
+.review-2 {
+  margin: 0 15px;
+}
+
+.reviews h2,
+.reviews h3 {
+  text-align: center;
+}
+
+.review-profile .name,
+.review-profile .location {
+  text-align: right;
+}
+
+.review-avatar {
+  position: absolute;
+}
+
+.review-avatar img {
+  position: relative;
+  box-shadow: 6px 6px 2px 1px rgba(0, 0, 0, 0.2);
+  left: 100px;
+  border-radius: 60px;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.review-quote {
+  background-color: #f0ebe8;
+  box-shadow: 8px 8px 2px 1px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+}
+
+/*Social */
 
 .socials {
   font-size: 1.4rem;
@@ -190,6 +279,7 @@ figure:hover:before {
 .socials-icons {
   width: 60px;
 }
+/*Info */
 
 .info p {
   margin: 0 auto;
@@ -211,6 +301,14 @@ figure:hover:before {
   }
   .sample li {
     width: 100%;
+  }
+
+  .reviews-wrapper {
+    display: block;
+  }
+
+  .review-1 {
+    margin-bottom: 40px;
   }
 }
 </style>
