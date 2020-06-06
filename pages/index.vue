@@ -33,14 +33,6 @@
         </li>
       </ul>
     </section>
-
-    <section class="socials container">
-      <p>Suivez-nous sur les réseaux</p>
-      <img class="socials-icons" src="../assets/facebook.png" alt="facebook" />
-      <img class="socials-icons" src="../assets/instagram.png" alt="instagram" />
-      <img class="socials-icons" src="../assets/twitter.png" alt="twitter" />
-    </section>
-
     <section class="info container gray">
       <h2>Informations</h2>
       <p>
@@ -48,6 +40,12 @@
         Maiores excepturi dolor repudiandae eveniet. Vel, distinctio vero. Est adipisci fuga perspiciatis, rem architecto iste saepe tenetur commodi molestias sint nemo ipsum modi dignissimos molestiae, dolore eveniet quasi necessitatibus obcaecati?
         Laudantium amet vero fuga, labore accusantium hic, ducimus corporis earum in veritatis, ea rem quia sequi? Tempore asperiores, optio facilis aliquam maiores saepe illo obcaecati nostrum, ratione dolor mollitia reprehenderit.
       </p>
+    </section>
+    <section class="socials container">
+      <p>Suivez-nous sur les réseaux</p>
+      <img class="socials-icons" src="../assets/facebook.png" alt="facebook" />
+      <img class="socials-icons" src="../assets/instagram.png" alt="instagram" />
+      <img class="socials-icons" src="../assets/twitter.png" alt="twitter" />
     </section>
   </div>
 </template>

@@ -5,16 +5,19 @@
       <div class="banner"></div>
     </header>
     <nuxt />
+    <foot />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Navbar from "@/components/layout/Navbar.vue";
+import Foot from "@/components/layout/Footer.vue";
 
 export default Vue.extend({
   components: {
-    Navbar
+    Navbar,
+    Foot
   },
   mounted() {
     // fixes the issue of overlapping of css on different layouts
