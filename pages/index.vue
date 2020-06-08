@@ -50,7 +50,7 @@
             </div>
 
             <div class="review-quote">
-              <p>Juste deux mots : professionnels et compétents !&nbsp;À la recherche d’un bien sur Cabourg, l’équipe de l’agence a su être à l’écoute de ma demande et a trouvé l’appartement qui me correspond. Je ne pouvais espérer mieux. Encore merci à eux.</p>
+              <p>Juste deux mots : professionnels et compétents !&nbsp;À la recherche d’un bien sur Dijon, l’équipe de l’agence a su être à l’écoute de ma demande et a trouvé l’appartement qui me correspond. Je ne pouvais espérer mieux. Encore merci à eux.</p>
               <div class="swp-content-locator"></div>
             </div>
           </div>
@@ -98,6 +98,9 @@ import Vue from "vue";
 import { mapState } from "vuex";
 
 export default Vue.extend({
+  async fetch({ store }) {
+    await store.dispatch("estates/fetchEstates");
+  },
   mounted() {
     /* style hover card estates */
     const figcaption = document.querySelectorAll("figcaption");

@@ -1,5 +1,19 @@
 <template>
   <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <nuxt-link to="/">Accueil</nuxt-link>
+        </li>
+        <li class="breadcrumb-item">
+          <nuxt-link to="/acheter">Acheter</nuxt-link>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+          {{ estate.title }} à
+          <!-- TODO city (bug) -->
+        </li>
+      </ol>
+    </nav>
     <div class="card">
       <h2>{{ estate.title }}</h2>
       <img id="img" :src="estate.img" />

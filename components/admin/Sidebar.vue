@@ -1,16 +1,16 @@
 <template>
   <b-nav vertical class="sidebar-nav">
     <li class="nav-item" id="home">
-      <nuxt-link to="/" class="nav-link" active>Home</nuxt-link>
+      <nuxt-link to="/" class="nav-link" active>Fake-immo</nuxt-link>
     </li>
     <li class="nav-item">
-      <nuxt-link to="/acheter" class="nav-link" active>Acheter</nuxt-link>
+      <nuxt-link to="/acheter" class="nav-link" active>Maisons en ventes</nuxt-link>
     </li>
     <li class="nav-item">
-      <nuxt-link to="/admin-panel" class="nav-link">Admin</nuxt-link>
+      <nuxt-link to="/admin-panel" class="nav-link">Espace d'administration</nuxt-link>
     </li>
     <li class="nav-item">
-      <nuxt-link to="/admin" class="nav-link">Auth</nuxt-link>
+      <nuxt-link to="/admin" class="nav-link">Formulaire d'authentification</nuxt-link>
     </li>
   </b-nav>
 </template>

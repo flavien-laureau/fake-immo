@@ -8,26 +8,19 @@
             label-for="email-input"
             description="Nous ne partagerons jamais votre e-mail avec quelqu'un d'autre."
           >
-            <b-form-input
-              id="email-input"
-              v-model="form.email"
-              type="email"
-              required
-            ></b-form-input>
+            <b-form-input id="email-input" v-model="form.email" type="email" required></b-form-input>
           </b-form-group>
 
           <b-form-group label="Mot de passe:" label-for="password-input">
-            <b-form-input
-              id="password-input"
-              type="password"
-              v-model="form.password"
-              required
-            ></b-form-input>
+            <b-form-input id="password-input" type="password" v-model="form.password" required></b-form-input>
           </b-form-group>
 
           <b-button type="submit" variant="primary">Se connecter</b-button>
           <b-button type="reset" variant="danger">Effacer</b-button>
-          <nuxt-link to="/admin-panel">admin-panel (tempo)</nuxt-link>
+          <p v-if="log">
+            Vous êtes connecter en tant que {{ adminName }},
+            <nuxt-link to="/admin-panel">cliquez ici</nuxt-link>&#160;pour acceder à l'espace d'administration.
+          </p>
         </b-form>
       </div>
     </div>
@@ -46,8 +39,18 @@ export default Vue.extend({
         email: "slt@mail.com",
         password: "test"
       },
-      show: true
+      show: true,
+      adminName: "",
+      log: false
     };
+  },
+  mounted() {
+    if (this.$store.state.admin.token) {
+      this.log = true;
+      if (this.$store.state.admin.name) {
+        this.adminName = this.$store.state.admin.name;
+      }
+    }
   },
   methods: {
     onSubmit(e: any) {

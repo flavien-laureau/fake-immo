@@ -48,6 +48,7 @@ export const actions = {
     commit
   }) {
     commit("SET_ADMINID", null)
+    commit("SET_NAME", null)
     commit("SET_TOKEN", null)
   }
 }

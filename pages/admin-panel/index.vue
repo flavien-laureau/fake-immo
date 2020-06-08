@@ -430,24 +430,6 @@ export default Vue.extend({
   font-size: 1.5em;
 }
 
-/*Rows */
-#row-title {
-  /* min-width: 135px; */
-}
-#row-img {
-}
-#row-address {
-}
-#row-description {
-}
-#row-price {
-  /* width: 108px; */
-}
-#row-author {
-}
-#row-actions {
-}
-
 /* Row Links actions */
 .table td a.view {
   color: #03a9f4;
