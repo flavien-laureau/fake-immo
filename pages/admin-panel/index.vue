@@ -71,6 +71,8 @@
           @hidden="resetModal"
           @ok="handleOk($event)"
         >
+          <p>Date d'ajout: {{ estate.date.dateAdded }}</p>
+          <p>Derniere modif: {{ estate.date.lastModify }}</p>
           <form>
             <b-form-group label="Nom du bien" invalid-feedback="Name is required">
               <b-form-input @keydown.enter="handleOk" v-model="estate.title" required></b-form-input>
@@ -178,6 +180,7 @@ interface Location {
 }
 
 interface Estate {
+  date: { dateAdded: string; lastModify: string };
   title: string;
   rooms: number;
   squareMeters: number;
@@ -208,6 +211,7 @@ export default Vue.extend({
     return {
       id: "",
       estate: {
+        date: { dateAdded: "", lastModify: "" },
         title: "",
         rooms: 0,
         squareMeters: 0,
@@ -264,6 +268,10 @@ export default Vue.extend({
         console.log(this.estate.location);
         //Si on ajoute un bien
         let estate = {
+          date: {
+            dateAdded: Date.now(),
+            lastModify: Date.now()
+          },
           title: this.estate.title,
           description: this.estate.description,
           author: {
@@ -286,7 +294,21 @@ export default Vue.extend({
 
         this.addSubmit(formData);
       } else if (this.state === "modify") {
+        /*Just for don't mofidy the dateAdded*/
+        let estateInModify: any;
+        let id = this.id;
+        this.estatesList.forEach((elt: any) => {
+          if (id === elt._id) {
+            estateInModify = elt;
+          }
+        });
+        /*Just for don't mofidy the dateAdded*/
+
         const estate = {
+          date: {
+            dateAdded: estateInModify.date.dateAdded,
+            lastModify: Date.now()
+          },
           title: this.estate.title,
           description: this.estate.description,
           author: {
@@ -364,6 +386,10 @@ export default Vue.extend({
         }
       });
 
+      this.estate.date = {
+        dateAdded: new Date(estate.date.dateAdded).toLocaleString(),
+        lastModify: new Date(estate.date.lastModify).toLocaleString()
+      };
       this.estate.title = estate.title;
       this.estate.type = estate.type;
       this.image = estate.img;
@@ -396,12 +422,7 @@ export default Vue.extend({
   },
   computed: {
     ...mapState("estates", ["estatesList"])
-  } /* ,
-  watch: {
-    file() {
-      console.log(this.file);
-    }
-  } */
+  }
 });
 </script>
 

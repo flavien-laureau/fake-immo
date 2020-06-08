@@ -1,6 +1,16 @@
 const mongoose = require('mongoose');
 
 const estateSchema = mongoose.Schema({
+  date: {
+    dateAdded: {
+      type: Number,
+      required: true
+    },
+    lastModify: {
+      type: Number,
+      required: true
+    },
+  },
   title: {
     type: String,
     required: true
