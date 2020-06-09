@@ -15,7 +15,6 @@ export const state = () => ({
 export const mutations = {
   SET_ESTATES(state, estates) {
     state.estatesList = estates
-    console.log(' store estates:', estates)
   },
   SET_ESTATE(state, estate) {
     state.oneEstate = estate
