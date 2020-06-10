@@ -106,5 +106,8 @@ export const getters = {
       }
     })
     return estates
+  },
+  oneEstate(state) {
+    return state.oneEstate;
   }
 }
