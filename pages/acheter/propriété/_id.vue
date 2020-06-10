@@ -9,7 +9,8 @@
           <nuxt-link to="/acheter">Acheter</nuxt-link>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-          {{ estate.title }} à
+          {{ estate.title }} à {{ location.city }}
+          <!-- {{estate.location.city}} -->
           <!-- TODO city (bug) -->
         </li>
       </ol>
@@ -23,6 +24,15 @@
     <nuxt-link to="/acheter">
       <button class="button btnPrimary">Retour</button>
     </nuxt-link>
+    <iframe
+      id="map"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d43265.63493368486!2d4.997201684433277!3d47.33187566674457!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f29d8ceffd9675%3A0x409ce34b31458d0!2s21000%20Dijon!5e0!3m2!1sfr!2sfr!4v1591740587229!5m2!1sfr!2sfr"
+      frameborder="0"
+      style="border:0;"
+      allowfullscreen
+      aria-hidden="false"
+      tabindex="0"
+    ></iframe>
   </div>
 </template>
 
@@ -31,22 +41,27 @@ import Vue from "vue";
 
 export default Vue.extend({
   data() {
-    return {};
+    return {
+      estate: "",
+      location: ""
+    };
   },
-  beforeRouteEnter(to, from, next) {
-    //nuxt method, to= this component. From = last component.
-    //next = method that allows you to launch the rest of the rendering by doing what you put in parenthesis
-    next(vm => vm.$store.dispatch("estates/fetchEstate", to.params.id));
-  },
-  computed: {
-    estate() {
-      return this.$store.state.estates.oneEstate;
-    }
+  async created() {
+    const pathArray = window.location.pathname.split("/");
+    const id = pathArray[3];
+
+    await this.$store.dispatch("estates/fetchEstate", id);
+    this.estate = this.$store.state.estates.oneEstate;
+    this.location = this.$store.state.estates.oneEstate.location;
   }
 });
 </script>
 
 <style scoped>
+#map {
+  width: 100%;
+  height: 350px;
+}
 .card {
   text-align: center;
 }

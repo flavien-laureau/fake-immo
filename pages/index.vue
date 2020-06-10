@@ -172,6 +172,12 @@ export default Vue.extend({
   height: 300px;
 }
 
+.sample img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .img-container {
   height: 100%;
 }
@@ -196,12 +202,6 @@ figure:hover:before {
   position: relative;
   margin: 0;
   height: 100%;
-}
-
-.sample img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .sample figcaption {

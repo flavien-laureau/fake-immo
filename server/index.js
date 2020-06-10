@@ -1,6 +1,7 @@
 const express = require("express");
 const consola = require("consola");
 const mongoose = require("mongoose");
+const db = require('./dbconnect');
 const bodyParser = require("body-parser");
 const path = require('path');
 const {
@@ -46,7 +47,7 @@ start();
 //Connect to the db
 mongoose
   .connect(
-    "mongodb+srv://flavien:Dh7f4dh7f4d@clustercoursopc-b2shk.gcp.mongodb.net/fake-immo?retryWrites=true&w=majority", {
+    db, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     }
