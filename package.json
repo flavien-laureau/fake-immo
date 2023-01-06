@@ -22,7 +22,7 @@
     "mongoose": "^5.9.9",
     "mongoose-unique-validator": "^2.0.3",
     "multer": "^1.4.2",
-    "nuxt": "2.12.2"
+    "nuxt": "2.15.8"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.0",
